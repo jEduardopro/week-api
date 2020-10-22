@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Subtask;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class SubtaskSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class SubtaskSeeder extends Seeder
      */
     public function run()
     {
-        Subtask::factory()->count(5)->hasDocuments(3)->create();
+        User::factory()->times(10)->hasDocuments(3)->create();
     }
 }

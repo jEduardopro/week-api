@@ -21,6 +21,11 @@ class DocumentFactory extends Factory
      */
     public function definition()
     {
-        return [];
+        return [
+            "name" => $this->faker->name,
+            "original_name" => $this->faker->name,
+            "documentable_id" => 1,
+            "documentable_type" => "App\Models\User",
+        ];
     }
 }
