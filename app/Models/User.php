@@ -44,4 +44,19 @@ class User extends Authenticatable
     {
         $this->notify(new SendEmailForResetPassword($token));
     }
+
+    public function proyects()
+    {
+        return $this->hasMany(Proyect::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function documents()
+    {
+        return $this->morphMany(Document::class, 'documentable');
+    }
 }

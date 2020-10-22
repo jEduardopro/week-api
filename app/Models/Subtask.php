@@ -20,4 +20,9 @@ class Subtask extends Model
     {
         return $this->belongsTo(User::class, 'responsable_id');
     }
+
+    public function documents()
+    {
+        return $this->morphMany(Document::class, 'documentable');
+    }
 }
