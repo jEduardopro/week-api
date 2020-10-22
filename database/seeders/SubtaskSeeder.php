@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Task;
+use App\Models\Subtask;
 use Illuminate\Database\Seeder;
 
-class TaskSeeder extends Seeder
+class SubtaskSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class TaskSeeder extends Seeder
      */
     public function run()
     {
-        Task::factory()->count(50)->create();
+        Subtask::factory()->count(50)->create();
     }
 }
