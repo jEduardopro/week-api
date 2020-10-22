@@ -21,7 +21,11 @@ class ApiController extends Controller
 
     public function responseData($data, $message = "", $code = 200)
     {
-        return $this->response(["data" => $data, "message" => $message], $code);
+        $response = (object) [
+            'message' => $message,
+            'data' => $data,
+        ];
+        return $this->response($response, $code);
     }
 
     public function responseMessage($message, $code =  200)
