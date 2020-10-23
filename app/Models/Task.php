@@ -35,4 +35,9 @@ class Task extends Model
     {
         return $this->morphMany(Document::class, 'documentable');
     }
+
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
 }
