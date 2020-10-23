@@ -25,9 +25,4 @@ class Proyect extends Model
     {
         return $this->hasManyThrough(Subtask::class, Task::class);
     }
-
-    public function documents()
-    {
-        return $this->hasManyThrough(Document::class, Task::class);
-    }
 }

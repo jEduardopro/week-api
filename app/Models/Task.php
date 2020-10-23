@@ -9,7 +9,7 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["id", "user_id", "proyect_id", "name", "description", "due_date", "responsable_id", "status"];
+    protected $fillable = ["id", "user_id", "proyect_id", "name", "description", "due_date", "responsable_id", "priority", "status"];
 
     public function user()
     {
@@ -34,10 +34,5 @@ class Task extends Model
     public function documents()
     {
         return $this->morphMany(Document::class, 'documentable');
-    }
-
-    public function subtasksDocuments()
-    {
-        return $this->hasManyThrough(Document::class, Subtask::class);
     }
 }
