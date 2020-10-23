@@ -35,4 +35,9 @@ class Task extends Model
     {
         return $this->morphMany(Document::class, 'documentable');
     }
+
+    public function subtasksDocuments()
+    {
+        return $this->hasManyThrough(Document::class, Subtask::class);
+    }
 }

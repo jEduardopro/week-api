@@ -55,6 +55,11 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     }
 
+    public function subtasks()
+    {
+        return $this->hasManyThrough(Subtask::class, Task::class);
+    }
+
     public function documents()
     {
         return $this->morphMany(Document::class, 'documentable');

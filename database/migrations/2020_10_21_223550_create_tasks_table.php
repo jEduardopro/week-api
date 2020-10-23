@@ -17,11 +17,11 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained()->cascadeOnDelete();
             $table->foreignId("proyect_id")->nullable()->constrained()->cascadeOnDelete();
-            $table->string("name", 255);
+            $table->string("name", 255)->index();
             $table->longText("description");
-            $table->dateTime("due_date");
+            $table->dateTime("due_date")->index();
             $table->foreignId("responsable_id")->nullable()->constrained("users")->cascadeOnDelete();
-            $table->tinyInteger("status")->default(0);
+            $table->tinyInteger("status")->default(0)->index();
             $table->timestamps();
         });
     }

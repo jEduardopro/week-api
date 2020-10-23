@@ -14,6 +14,6 @@ class SubtaskSeeder extends Seeder
      */
     public function run()
     {
-        Subtask::factory()->count(5)->hasDocuments(3)->create();
+        Subtask::factory()->count(25)->hasDocuments(3)->create();
     }
 }

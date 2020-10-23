@@ -16,11 +16,11 @@ class CreateSubtasksTable extends Migration
         Schema::create('subtasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId("task_id")->constrained()->cascadeOnDelete();
-            $table->string("name", 255);
+            $table->string("name", 255)->index();
             $table->longText("description");
-            $table->dateTime("due_date");
+            $table->dateTime("due_date")->index();
             $table->foreignId("responsable_id")->nullable()->constrained("users")->cascadeOnDelete();
-            $table->tinyInteger("status")->default(0);
+            $table->tinyInteger("status")->default(0)->index();
             $table->timestamps();
         });
     }
