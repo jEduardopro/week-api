@@ -29,9 +29,9 @@ class DatabaseSeeder extends Seeder
         //     )->hasDocuments(3)
         //     ->create();
         User::factory()->count(2)
-            ->create()
-            ->each(function ($u) {
-                $u->proyects()->saveMany(Proyect::factory()->count(3)->make());
-            });
+            ->has(Proyect::factory()->count(10))
+            ->has(Task::factory()->count(10)->has(Subtask::factory()->count(3)->hasDocuments(2))->hasDocuments(2))
+            ->hasDocuments(5)
+            ->create();
     }
 }

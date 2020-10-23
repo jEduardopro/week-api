@@ -21,6 +21,7 @@ class CreateTasksTable extends Migration
             $table->longText("description");
             $table->dateTime("due_date")->index();
             $table->foreignId("responsable_id")->nullable()->constrained("users")->cascadeOnDelete();
+            $table->tinyInteger("priority")->default(0)->index();
             $table->tinyInteger("status")->default(0)->index();
             $table->timestamps();
         });
