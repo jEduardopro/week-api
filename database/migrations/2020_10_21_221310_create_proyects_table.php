@@ -18,6 +18,7 @@ class CreateProyectsTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('name', 255)->index();
             $table->longText('description');
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }

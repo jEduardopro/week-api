@@ -23,7 +23,7 @@ class LoginController extends ApiController
             if ($user) {
                 $password = Hash::check($request->password, $user->password);
                 if ($password) {
-                    Passport::personalAccessTokensExpireIn(now()->addMinutes(2));
+                    Passport::personalAccessTokensExpireIn(now()->addMinutes(120));
 
                     $token = $user->createToken('token');
                     $expireIn = Carbon::parse($token->token->expires_at)->timestamp;

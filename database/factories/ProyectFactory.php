@@ -25,7 +25,8 @@ class ProyectFactory extends Factory
         return [
             "user_id" => User::factory(),
             "name" => $this->faker->name,
-            "description" => $this->faker->text
+            "description" => $this->faker->text,
+            "color" => null
         ];
     }
 }
