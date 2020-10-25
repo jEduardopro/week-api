@@ -56,13 +56,32 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     }
 
+    public function tasksAssign()
+    {
+        return $this->hasMany(Task::class, 'responsable_id');
+    }
+
     public function subtasks()
     {
         return $this->hasManyThrough(Subtask::class, Task::class);
     }
 
+    public function subtasksAssign()
+    {
+        return $this->hasMany(Subtask::class, 'responsable_id');
+    }
+
     public function documents()
     {
         return $this->morphMany(Document::class, "documentable");
+    }
+
+    public function allTasks()
+    {
+        $tasks = $this->tasks()->select("id", "user_id", "proyect_id", "name", "description", "due_date", "responsable_id", "priority", "status")->get();
+        $tasksAssign = $this->tasksAssign()->select("id", "user_id", "proyect_id", "name", "description", "due_date", "responsable_id", "priority", "status");
+        $subtasksAssign = $this->subtasksAssign()->select("id", "task_id", "name", "description", "due_date", "responsable_id", "priority", "status")->with('task')->get();
+        $tasksMerged = $tasks->merge($tasksAssign);
+        return $subtasksAssign->merge($tasksMerged);
     }
 }
