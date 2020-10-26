@@ -13,6 +13,7 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api\Auth'], function () {
     Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
     Route::post('password/reset', 'ResetPasswordController@reset');
     Route::post('logout', 'LoginController@logout');
+    Route::post('refresh/token', 'LoginController@refreshToken');
 });
 
 Route::get("tasks/all", function () {
