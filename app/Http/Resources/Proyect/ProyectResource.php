@@ -19,7 +19,6 @@ class ProyectResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "owner" => $this->user->name,
             "name" => $this->name,
             "description" => $this->description,
             "color" => $this->color,
@@ -27,6 +26,10 @@ class ProyectResource extends JsonResource
                 "user" => UserResource::make($this->whenLoaded('user')),
                 "tasks" => TaskCollection::make($this->whenLoaded('tasks')),
                 "subtasks" => SubtaskCollection::make($this->whenLoaded('subtasks')),
+            ],
+            "meta" => [
+                "tasksCount" => count($this->tasks),
+                "subtasksCount" => count($this->subtasks),
             ],
             "dates" => [
                 "created_at" => $this->created_at,
