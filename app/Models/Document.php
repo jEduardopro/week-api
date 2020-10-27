@@ -9,7 +9,7 @@ class Document extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["id", "name", "original_name", "documentable_id", "documentable_type"];
+    protected $fillable = ["name", "original_name", "documentable_id", "documentable_type"];
 
     public function documentable()
     {
