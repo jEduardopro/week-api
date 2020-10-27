@@ -16,7 +16,12 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
     Route::post('refresh/token', 'LoginController@refreshToken');
 });
 
-Route::apiResource('proyects', 'Proyect\ProyectController');
+Route::middleware('auth:api')->group(function () {
+    $exceptCreateEdit = ['except' => ['create', 'edit']];
+    Route::apiResource('proyects', 'Proyect\ProyectController', $exceptCreateEdit);
+    Route::apiResource('users.proyects', 'User\UserProyectController', $exceptCreateEdit);
+});
+
 
 Route::get("tasks/all", function () {
     $user = new User();

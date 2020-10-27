@@ -31,7 +31,6 @@ class LoginController extends ApiController
 
                     return $this->responseData([
                         "access_token" => $token->accessToken,
-                        "token" => $token,
                         "expires_in" => $expireIn,
                         "user" => $user
                     ]);
@@ -56,7 +55,6 @@ class LoginController extends ApiController
 
                 return $this->responseData([
                     "access_token" => $token->accessToken,
-                    "token" => $token,
                     "expires_in" => $expireIn,
                     "user" => $user
                 ]);
