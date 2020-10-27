@@ -14,6 +14,6 @@ class SubtaskCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return $this->collection;
+        return SubtaskResource::collection($this->collection);
     }
 }

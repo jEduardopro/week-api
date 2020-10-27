@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Proyect;
+namespace App\Http\Resources\Department;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ProyectCollection extends ResourceCollection
+class DepartmentCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,6 +14,6 @@ class ProyectCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return ProyectResource::collection($this->collection);
+        return DepartmentResource::collection($this->collection);
     }
 }

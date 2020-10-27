@@ -14,6 +14,6 @@ class TaskCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return $this->collection;
+        return TaskResource::collection($this->collection);
     }
 }

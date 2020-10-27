@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api\Proyect;
 
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Resources\Proyect\ProyectCollection;
+use App\Http\Resources\Proyect\ProyectResource;
 use App\Models\Proyect;
 use Exception;
-use Illuminate\Http\Request;
 
 class ProyectController extends ApiController
 {
@@ -17,53 +18,26 @@ class ProyectController extends ApiController
     public function index()
     {
         try {
+            return $this->responseResource(ProyectCollection::make(Proyect::all()), 'proyect.index');
         } catch (Exception $e) {
             return $this->responseError($e, 'proyect.index');
         }
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Proyect  $proyect
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Proyect $proyect)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Proyect  $proyect
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Proyect $proyect)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Proyect  $proyect
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Proyect $proyect)
-    {
-        //
+        try {
+            $proyect = Proyect::whereId($id)->firstOrFail();
+            $proyect->load('tasks', 'subtasks');
+            return $this->responseResource(ProyectResource::make($proyect), 'proyect.show');
+        } catch (Exception $e) {
+            return $this->responseError($e, 'proyect.show');
+        }
     }
 }
