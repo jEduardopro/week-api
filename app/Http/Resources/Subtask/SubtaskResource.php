@@ -24,12 +24,16 @@ class SubtaskResource extends JsonResource
             "description" => $this->description,
             "due_date" => $this->due_date,
             "responsable_id" => $this->responsable_id,
-            "priority" => $this->priority,
-            "status" => $this->status,
+            "priority" => (int) $this->priority,
+            "status" => (int) $this->status,
             "relationships" => [
                 "user" => UserResource::make($this->whenLoaded('user')),
                 "task" => TaskResource::make($this->whenLoaded('task')),
+                "responsable" => UserResource::make($this->whenLoaded('responsable')),
                 "documents" => DocumentResource::collection($this->whenLoaded('documents')),
+            ],
+            "meta" => [
+                "documentsCount" => count($this->documents),
             ],
             "dates" => [
                 "created_at" => $this->created_at,
