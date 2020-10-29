@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Jobs\SendAssignNotification;
 use App\Models\{Subtask, Task};
 use Illuminate\Http\Request;
 
@@ -14,6 +15,7 @@ trait TaskTrait
             ->resolveModel()
             ->saveTask()
             ->attachFileWhenReceiveOne()
+            ->sendNotificationWhenAssignResponsable()
             ->loadRelationships();
     }
 
@@ -41,6 +43,7 @@ trait TaskTrait
         return $this;
     }
 
+
     private function attachFileWhenReceiveOne()
     {
         if (!$this->request->has('file')) {
@@ -48,6 +51,15 @@ trait TaskTrait
         }
 
         $this->attach($this->task, $this->request->file);
+        return $this;
+    }
+
+    private function sendNotificationWhenAssignResponsable()
+    {
+        if (!$this->task->responsable_id) {
+            return $this;
+        }
+        SendAssignNotification::dispatch($this->task)->onQueue('tasks');
         return $this;
     }
 

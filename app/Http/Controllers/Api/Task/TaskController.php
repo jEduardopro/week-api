@@ -56,7 +56,13 @@ class TaskController extends ApiController
      */
     public function show($id)
     {
-        //
+        try {
+            $task = Task::whereId($id)->firstOrFail();
+            $task->load('subtasks', 'responsable', 'proyect', 'documents');
+            return $this->responseResource(TaskResource::make($task), 'task.show');
+        } catch (Exception $e) {
+            return $this->responseError($e, 'task.show');
+        }
     }
 
     /**
