@@ -39,7 +39,7 @@ class TaskController extends ApiController
     {
         try {
             DB::beginTransaction();
-            $task = $this->createTask($request);
+            $task = $this->updateOrCreateTask($request);
             DB::commit();
             return $this->responseResource(TaskResource::make($task), 'task.store');
         } catch (Exception $e) {
@@ -74,7 +74,15 @@ class TaskController extends ApiController
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $task = $this->updateOrCreateTask($request, $id);
+            DB::commit();
+            return $this->responseResource(TaskResource::make($task), 'task.update');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return $this->responseError($e, 'task.update');
+        }
     }
 
     /**
