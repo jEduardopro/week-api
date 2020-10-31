@@ -29,4 +29,20 @@ trait DocumentTrait
     {
         Storage::disk($disk)->put($filename, File::get($file));
     }
+
+    public function detach($model, $disk = "documents")
+    {
+        $documents = $model->documents()->get();
+        if ($documents->isNotEmpty()) {
+            foreach ($documents as $document) {
+                $this->deleteDocument($document, $disk);
+            }
+        }
+    }
+
+    public function deleteDocument($document, $disk)
+    {
+        Storage::disk($disk)->delete($document->name);
+        $document->delete();
+    }
 }

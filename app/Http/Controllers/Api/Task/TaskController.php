@@ -93,6 +93,12 @@ class TaskController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        try {
+            $task = Task::whereId($id)->firstOrFail();
+            $this->destroyTask($task);
+            return $this->responseMessage("Tarea eliminada");
+        } catch (Exception $e) {
+            return $this->responseError($e, 'task.destroy');
+        }
     }
 }

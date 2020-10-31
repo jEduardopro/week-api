@@ -117,4 +117,10 @@ trait TaskTrait
     {
         return $this->oldTask->responsable_id == $this->request->responsable_id;
     }
+
+    public function destroyTask($task)
+    {
+        $this->detach($task);
+        $task->delete();
+    }
 }
