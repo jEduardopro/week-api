@@ -20,6 +20,7 @@ Route::middleware('auth:api')->group(function () {
     $exceptCreateEdit = ['except' => ['create', 'edit']];
     Route::apiResource('proyects', 'Proyect\ProyectController', $exceptCreateEdit);
     Route::apiResource('tasks', 'Task\TaskController', $exceptCreateEdit);
+    Route::apiResource('subtasks', 'Subtask\SubtaskController', $exceptCreateEdit);
     Route::apiResource('users.proyects', 'User\UserProyectController', $exceptCreateEdit);
 });
 

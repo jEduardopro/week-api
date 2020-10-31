@@ -41,6 +41,7 @@ trait TaskTrait
 
     private function setOldTaskIfExists()
     {
+        $this->oldTask = null;
         if ($this->id) {
             $this->oldTask = $this->model::whereId($this->id)->firstOrFail();
             return $this;
@@ -50,8 +51,12 @@ trait TaskTrait
 
     private function saveTask()
     {
-        $firstParam = $this->id ? ["id" => $this->id] : [];
-        $this->task = $this->model::updateOrCreate($firstParam, $this->data);
+        if ($this->id) {
+            $this->task = $this->model::where('id', $this->id)->firstOrFail();
+            $this->task->fill($this->data)->save();
+            return $this;
+        }
+        $this->task = $this->model::create($this->data);
         return $this;
     }
 
@@ -101,13 +106,13 @@ trait TaskTrait
 
     private function shouldNotify()
     {
-        if ($this->oldTask && $this->request->responsable_id) {
+        if ($this->oldTask && $this->request->filled('responsable_id')) {
             if ($this->oldResponsableIsEqualCurrent()) {
                 return false;
             }
             return true;
         }
-        if ($this->request->responsable_id) {
+        if ($this->request->filled('responsable_id')) {
             return true;
         }
         return false;
