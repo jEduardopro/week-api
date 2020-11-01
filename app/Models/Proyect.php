@@ -11,6 +11,34 @@ class Proyect extends Model
 
     protected $fillable = ["user_id", "name", "description", "color"];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($proyect) {
+            $proyect->color = $proyect->getRandomColor();
+        });
+    }
+
+    public function getRandomColor()
+    {
+        $colors = collect([
+            "red",
+            "orange",
+            "yellow darken-2",
+            "light-green",
+            "green",
+            "green darken-3",
+            "blue",
+            "indigo",
+            "purple",
+            "pink",
+            "pink darken-3",
+            "pink lighten-2",
+        ]);
+        return $colors->random();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

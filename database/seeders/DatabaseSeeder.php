@@ -19,6 +19,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Department::factory()->count(5)->create();
+        User::factory()->create([
+            "name" => "jesus eduardo",
+            "email" => "admin@gmail.com",
+            "slug" => \Str::slug("jesus eduardo"),
+        ]);
         User::factory()->count(2)
             ->has(Proyect::factory()->count(5))
             ->has(Task::factory()->count(5)->hasLikes(2)->has(Subtask::factory()->count(3)->hasDocuments(2)->hasLikes(2))->hasDocuments(2))
