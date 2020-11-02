@@ -33,12 +33,12 @@ class ApiController extends Controller
         return $this->response(["message" => $message], $code);
     }
 
-    public function responseErrorMessage($message, $code =  417)
+    public function responseErrorMessage($error, $message = "", $code =  417)
     {
-        return $this->response(["error" => $message], $code);
+        return $this->response(["error" => $error, "message" => $message], $code);
     }
 
-    public function responseError($exception, $message, $code = 417)
+    public function responseError($exception, $message = "", $code = 417)
     {
         return $this->response([
             "exception" => $exception->getMessage(),
