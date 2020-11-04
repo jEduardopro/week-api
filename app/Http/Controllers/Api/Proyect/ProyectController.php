@@ -19,7 +19,7 @@ class ProyectController extends ApiController
     public function index()
     {
         try {
-            return $this->responseResource(ProyectCollection::make(Proyect::with('user')->get()), 'proyect.index');
+            return $this->responseResource(ProyectCollection::make(Proyect::with('user')->latest()->get()), 'proyect.index');
         } catch (Exception $e) {
             return $this->responseError($e, 'proyect.index');
         }

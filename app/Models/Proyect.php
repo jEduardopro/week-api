@@ -15,7 +15,7 @@ class Proyect extends Model
     {
         parent::boot();
 
-        static::saving(function ($proyect) {
+        static::creating(function ($proyect) {
             $proyect->color = $proyect->getRandomColor();
         });
     }
